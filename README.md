@@ -31,7 +31,7 @@ Get-ArtifactoryChildItem 'docker'
 ```
 OR
 ```powershell
-Get-ArtifactoryItem 'docker' | Get-ChildItem
+Get-ArtifactoryItem 'docker' | Get-ArtifactoryChildItem
 ```
 ```text
 Uri                                                                                  IsFolder
