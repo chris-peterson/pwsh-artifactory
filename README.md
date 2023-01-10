@@ -4,8 +4,9 @@ Cmdlets to interact with the [Artifactory REST API](https://www.jfrog.com/conflu
 
 ## Setup
 
-`$env:ARTIFACTORY_ENDPOINT="https://myartifactory.mydomain.local/artifactory"`
+```powershell
+$env:ARTIFACTORY_ENDPOINT="https://myartifactory.mydomain.local/artifactory"
+$env:ARTIFACTORY_API_KEY="my-artifactory-api-key"
 
-`$env:ARTIFACTORY_API_KEY="my-artifactory-api-key"`
-
-`Import-Module ArtifactoryCli`
+Import-Module ArtifactoryCli
+```
