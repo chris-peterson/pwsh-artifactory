@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Types>
+  <Type>
+    <Name>Artifactory.Item</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>ChildrenCount</Name>
+        <GetScriptBlock>
+            $this.Children.Length
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Artifactory.ChildItem</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>FullUri</Name>
+        <GetScriptBlock>
+            "$($this.FullPath)$($this.Uri)"
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
+    <Name>Artifactory.StorageInfo</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>BinariesSummaryFriendly</Name>
+        <GetScriptBlock>
+            "$($this.BinariesSummary.binariesSize) ($($this.BinariesSummary.binariesCount) items)"
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>FileStoreSummaryFriendly</Name>
+        <GetScriptBlock>
+            "$($this.FileStoreSummary.usedSpace) of $($this.FileStoreSummary.totalSpace)"
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RepositoriesSummaryListFriendly</Name>
+        <GetScriptBlock>
+            $RepoSummary = $this.RepositoriesSummaryList | Where-Object repoKey -eq 'TOTAL' | Select-Object usedSpace, itemsCount
+            "$($RepoSummary.usedSpace) ($('{0:N0}' -f $RepoSummary.itemsCount) items)"
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>LargestRepos</Name>
+        <GetScriptBlock>
+            $Top5 = $this.RepositoriesSummaryList |
+                Where-Object repoKey -ne 'TOTAL' |
+                Sort-Object -Descending percentage |
+                Select-Object -First 5 -ExpandProperty repoKey
+            $Top5 -join ', '
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RepoCount</Name>
+        <GetScriptBlock>
+            "$($this.RepositoriesSummaryList.Length)"
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+</Types>
