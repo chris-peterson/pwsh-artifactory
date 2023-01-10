@@ -10,11 +10,20 @@ function Get-ArtifactoryItem {
 }
 
 function Get-ArtifactoryChildItem {
+    [CmdletBinding(DefaultParameterSetName='ByPath')]
     param(
-        [Parameter(Mandatory, Position=0)]
+        [Parameter(ParameterSetName='ByPath', Mandatory, Position=0)]
         [string]
-        $Path
+        $Path,
+
+        [Parameter(ParameterSetName='ByUri', Mandatory, Position=0, ValueFromPipelineByPropertyName)]
+        [string]
+        $Uri
     )
+
+    if ($PSCmdlet.ParameterSetName -eq 'ByUri') {
+        $Path = $Uri.Replace("$env:ARTIFACTORY_ENDPOINT/api/storage", '')
+    }
 
     Get-ArtifactoryItem $Path | Select-Object -ExpandProperty Children |
         Add-Member -NotePropertyName 'Path' -NotePropertyValue $Path -PassThru |

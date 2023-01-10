@@ -12,6 +12,6 @@ function Get-ArtifactoryStorageInfo {
         $StorageInfo | New-ArtifactoryCliObject 'Artifactory.StorageInfo'
     }
     else {
-        $StorageInfo | Select-Object -ExpandProperty repositoriesSummaryList | New-ArtifactoryCliObject
+        $StorageInfo | Select-Object -ExpandProperty repositoriesSummaryList | Where-Object RepoKey -eq $RepoName | New-ArtifactoryCliObject
     }
 }
