@@ -4,9 +4,21 @@
     <Name>Artifactory.Item</Name>
     <Members>
       <ScriptProperty>
+        <Name>AbsoluteUri</Name>
+        <GetScriptBlock>
+            $this.Uri
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
         <Name>ChildrenCount</Name>
         <GetScriptBlock>
             $this.Children.Length
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>IsTrash</Name>
+        <GetScriptBlock>
+            $this.Repo -ceq 'auto-trashcan'
         </GetScriptBlock>
       </ScriptProperty>
     </Members>
@@ -15,9 +27,15 @@
     <Name>Artifactory.ChildItem</Name>
     <Members>
       <ScriptProperty>
-        <Name>FullUri</Name>
+        <Name>AbsoluteUri</Name>
         <GetScriptBlock>
-            "$($this.FullPath)$($this.Uri)"
+            "$($env:ARTIFACTORY_ENDPOINT)$($this.Path)$($this.Uri)"
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>IsTrash</Name>
+        <GetScriptBlock>
+            $this.Path.TrimStart('/').StartsWith('auto-trashcan')
         </GetScriptBlock>
       </ScriptProperty>
     </Members>

@@ -18,11 +18,10 @@
             <Label>Last Modified</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Child Count</Label>
-            <Alignment>Right</Alignment>
+            <Label>Uri</Label>
           </TableColumnHeader>
           <TableColumnHeader>
-            <Label>Uri</Label>
+            <Label>Children</Label>
           </TableColumnHeader>
         </TableHeaders>
         <TableRowEntries>
@@ -38,10 +37,11 @@
                 <PropertyName>LastModified</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>ChildrenCount</PropertyName>
+                <PropertyName>Uri</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
-                <PropertyName>Uri</PropertyName>
+                <PropertyName>ChildrenCount</PropertyName>
+                <Alignment>Right</Alignment>
               </TableColumnItem>
             </TableColumnItems>
           </TableRowEntry>
@@ -66,7 +66,7 @@
           <TableRowEntry>
             <TableColumnItems>
               <TableColumnItem>
-                <PropertyName>FullUri</PropertyName>
+                <PropertyName>AbsoluteUri</PropertyName>
               </TableColumnItem>
               <TableColumnItem>
                 <PropertyName>Folder</PropertyName>

@@ -25,7 +25,6 @@
     NestedModules = @(
         'Artifacts.psm1'
         'Storage.psm1'
-        'Trash.psm1'
         'Utilities.psm1'
     )
     FunctionsToExport = @(
