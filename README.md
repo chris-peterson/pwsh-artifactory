@@ -34,11 +34,27 @@ OR
 Get-ArtifactoryItem 'docker' | Get-ArtifactoryChildItem
 ```
 ```text
-Uri                                                                                  IsFolder
----                                                                                  --------
-https://myartifactory.mydomain.local/artifactory/docker/foo                          True
-https://myartifactory.mydomain.local/artifactory/docker/bar                          True
+Uri                                                            IsFolder
+---                                                            --------
+https://myartifactory.mydomain.local/artifactory/docker/imagea True
+https://myartifactory.mydomain.local/artifactory/docker/imageb True
 ...
+```
+
+### `Remove-ArtifactoryItem`
+
+In order to avoid timeouts (and to minimize risk), the best way to remove items is by specific tags as opposed to by folder / repository.
+
+Example:
+
+```powershell
+Get-ArtifactoryItem 'docker/imagea' | Get-ArtifactoryChildItem | ForEach-Object { $_ | Remove-ArtifactoryItem -Confirm }
+```
+```text
+Performing the operation "delete item" on target
+""https://myartifactory.mydomain.local/artifactory/docker/imagea/build123456".
+[Y] Yes  [A] Yes to All  [N] No  [L] No to All  [S] Suspend  [?] Help
+(default is "Y"):
 ```
 
 ### `Get-ArtifactoryStorageInfo`
