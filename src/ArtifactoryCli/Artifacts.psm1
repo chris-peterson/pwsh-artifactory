@@ -12,12 +12,12 @@ function Get-ArtifactoryItem {
         $FromTrash
     )
 
-    $Api = 'api/storage'
+    $Api = 'api/storage/'
     if ($FromTrash) {
-        $Api += '/auto-trashcan'
+        $Api += 'auto-trashcan/'
     }
 
-    Invoke-ArtifactoryApi GET -Path "$Api/$Path" |
+    Invoke-ArtifactoryApi GET -Path "$Api$Path" |
         New-ArtifactoryCliObject 'Artifactory.Item'
 }
 
@@ -36,7 +36,7 @@ function Get-ArtifactoryChildItem {
 
     if ($PSCmdlet.ParameterSetName -eq 'ByUri') {
         $Path = $AbsoluteUri.Replace($env:ARTIFACTORY_ENDPOINT, '')
-        $Path = $Path.Replace('/api/storage', '')
+        $Path = $Path.Replace('/api/storage/', '')
     }
 
     Get-ArtifactoryItem -Path $Path  | Select-Object -ExpandProperty Children |

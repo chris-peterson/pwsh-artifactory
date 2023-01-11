@@ -67,7 +67,8 @@
         <GetScriptBlock>
             $Top5 = $this.RepositoriesSummaryList |
                 Where-Object repoKey -ne 'TOTAL' |
-                Sort-Object -Descending percentage |
+                ForEach-Object { $_ | Add-Member -NotePropertyName 'SortKey' -NotePropertyValue $($_.percentage -match '[0-9\.]+' | Out-Null; [decimal] $($Matches.Values)) -PassThru } |
+                Sort-Object -Descending SortKey |
                 Select-Object -First 5 -ExpandProperty repoKey
             $Top5 -join ', '
         </GetScriptBlock>
