@@ -1,6 +1,6 @@
 # Overview
 
-Cmdlets to interact with the [Artifactory REST API](https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItemFromTrashCan).
+Module for interacting with [Artifactory's REST API](https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItemFromTrashCan).
 
 ## Status
 
