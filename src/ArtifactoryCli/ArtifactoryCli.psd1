@@ -37,5 +37,8 @@
         'Invoke-ArtifactoryApi'
         'New-ArtifactoryCliObject'
         )
-    AliasesToExport = @()
+    AliasesToExport = @(
+        'gai'
+        'gaci'
+    )
 }

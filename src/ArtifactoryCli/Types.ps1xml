@@ -29,7 +29,7 @@
       <ScriptProperty>
         <Name>AbsoluteUri</Name>
         <GetScriptBlock>
-            "$($env:ARTIFACTORY_ENDPOINT)$($this.Path)$($this.Uri)"
+            "$($env:ARTIFACTORY_ENDPOINT)/$($this.Path)$($this.Uri)"
         </GetScriptBlock>
       </ScriptProperty>
       <ScriptProperty>

@@ -1,5 +1,6 @@
 # https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-FileInfo
 function Get-ArtifactoryItem {
+    [Alias('gai')]
     [CmdletBinding()]
     param(
         [Parameter(Mandatory, Position=0)]
@@ -21,6 +22,7 @@ function Get-ArtifactoryItem {
 }
 
 function Get-ArtifactoryChildItem {
+    [Alias('gaci')]
     [CmdletBinding(DefaultParameterSetName='ByUri')]
     param(
         [Parameter(ParameterSetName='ByUri', Mandatory, ValueFromPipelineByPropertyName)]

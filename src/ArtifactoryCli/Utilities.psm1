@@ -13,21 +13,16 @@ function Invoke-ArtifactoryApi {
 
         [Parameter(ParameterSetName='ByUri', Position=1, Mandatory)]
         [string]
-        $Uri,
-
-        [Parameter()]
-        [switch]
-        $Anonymous
+        $Uri
     )
 
-    $Headers = $Anonymous ? $Null : @{ 'X-JFrog-Art-Api' = $env:ARTIFACTORY_API_KEY }
     $Resource = switch ($PSCmdlet.ParameterSetName) {
         ByPath { "$env:ARTIFACTORY_ENDPOINT/$Path" }
         ByUri  { "$Uri" }
     }
 
     if ($PSCmdlet.ShouldProcess($Resource, "$Method")) {
-        Invoke-RestMethod -Headers $Headers -Method $Method -Uri $Resource
+        Invoke-RestMethod -Headers @{ 'X-JFrog-Art-Api' = $env:ARTIFACTORY_API_KEY } -Method $Method -Uri $Resource
     }
 }
 
@@ -43,9 +38,9 @@ function New-ArtifactoryCliObject {
     )
     Begin{}
     Process {
-        foreach ($item in $InputObject) {
+        foreach ($Item in $InputObject) {
             $Wrapper = New-Object PSObject
-            $item.PSObject.Properties |
+            $Item.PSObject.Properties |
                 Sort-Object Name |
                 ForEach-Object {
                     $Wrapper | Add-Member -MemberType NoteProperty -Name $($_.Name | ConvertTo-TitleCase) -Value $_.Value
