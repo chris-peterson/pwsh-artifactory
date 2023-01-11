@@ -2,6 +2,14 @@
 
 Cmdlets to interact with the [Artifactory REST API](https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItemFromTrashCan).
 
+## Status
+
+[![PowerShell Gallery Version](https://img.shields.io/powershellgallery/v/ArtifactoryCli)](https://www.powershellgallery.com/packages/ArtifactoryCli)
+[![PowerShell Gallery](https://img.shields.io/powershellgallery/dt/ArtifactoryCli?color=green)](https://www.powershellgallery.com/packages/ArtifactoryCli)
+[![GitHub license](https://img.shields.io/github/license/chris-peterson/pwsh-artifactory.svg)](LICENSE)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/chris-peterson/pwsh-artifactory/deploy.yml?branch=main&label=ci)](https://github.com/chris-peterson/pwsh-artifactory/actions/workflows/deploy.yml)
+
+
 ## Setup
 
 ```powershell
