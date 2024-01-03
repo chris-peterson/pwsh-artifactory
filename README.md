@@ -14,7 +14,7 @@ Module for interacting with [Artifactory's REST API](https://www.jfrog.com/confl
 
 ```powershell
 $env:ARTIFACTORY_ENDPOINT='https://myartifactory.mydomain.local/artifactory'
-$env:ARTIFACTORY_API_KEY ='my-artifactory-api-key"
+$env:ARTIFACTORY_ACCESS_TOKEN ='my-artifactory-access-token"
 
 Import-Module ArtifactoryCli
 ```

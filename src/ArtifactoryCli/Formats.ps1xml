@@ -77,6 +77,46 @@
       </TableControl>
     </View>
     <View>
+      <Name>ArtifactoryRepository</Name>
+      <ViewSelectedBy>
+        <TypeName>Artifactory.Repository</TypeName>
+      </ViewSelectedBy>
+      <TableControl>
+        <TableHeaders>
+          <TableColumnHeader>
+            <Label>Name</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Package Type</Label>
+          </TableColumnHeader>
+          <TableColumnHeader>
+            <Label>Url</Label>
+          </TableColumnHeader>
+        </TableHeaders>
+        <TableRowEntries>
+          <TableRowEntry>
+            <TableColumnItems>
+              <TableColumnItem>
+                <PropertyName>Name</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>RepoType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>PackageType</PropertyName>
+              </TableColumnItem>
+              <TableColumnItem>
+                <PropertyName>Url</PropertyName>
+              </TableColumnItem>
+            </TableColumnItems>
+          </TableRowEntry>
+        </TableRowEntries>
+      </TableControl>
+    </View>
+    <View>
       <Name>ArtifactoryStorageInfo</Name>
       <ViewSelectedBy>
         <TypeName>Artifactory.StorageInfo</TypeName>

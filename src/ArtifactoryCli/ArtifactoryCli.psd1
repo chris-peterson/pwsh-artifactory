@@ -1,11 +1,11 @@
 @{
-    ModuleVersion = '0.0.1'
+    ModuleVersion = '0.0.2'
 
     PrivateData = @{
         PSData = @{
             LicenseUri = 'https://github.com/chris-peterson/pwsh-artifactory/blob/main/LICENSE'
             ProjectUri = 'https://github.com/chris-peterson/pwsh-artifactory'
-            ReleaseNotes = 'initial release'
+            ReleaseNotes = 'Add repository APIs; switch to access tokens as api keys are going away'
         }
     }
 
@@ -13,7 +13,7 @@
 
     Author = 'Chris Peterson'
     CompanyName = 'Chris Peterson'
-    Copyright = '(c) 2023'
+    Copyright = '(c) 2023-2024'
 
     Description = 'Interact with Artifactory via PowerShell'
     PowerShellVersion = '7.1'
@@ -24,16 +24,20 @@
 
     NestedModules = @(
         'Artifacts.psm1'
+        'Repositories.psm1'
         'Storage.psm1'
         'Utilities.psm1'
     )
     FunctionsToExport = @(
-        'Get-ArtifactoryStorageInfo'
-        
+        'Get-ArtifactoryRepository'
+        'Update-ArtifactoryRepositoryReplication'
+
         'Get-ArtifactoryItem'
         'Get-ArtifactoryChildItem'
         'Remove-ArtifactoryItem'
-        
+
+        'Get-ArtifactoryStorageInfo'
+
         'Invoke-ArtifactoryApi'
         'New-ArtifactoryCliObject'
         )

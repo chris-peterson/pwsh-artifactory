@@ -6,7 +6,7 @@ function Get-ArtifactoryStorageInfo {
         $RepoName
     )
 
-    $StorageInfo = Invoke-ArtifactoryApi GET "api/storageinfo"
+    $StorageInfo = Invoke-ArtifactoryApi GET "storageinfo"
 
     if ([string]::IsNullOrWhiteSpace($RepoName)) {
         $StorageInfo | New-ArtifactoryCliObject 'Artifactory.StorageInfo'

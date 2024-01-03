@@ -1,4 +1,3 @@
-# https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-FileInfo
 function Get-ArtifactoryItem {
     [Alias('gai')]
     [CmdletBinding()]
@@ -12,13 +11,13 @@ function Get-ArtifactoryItem {
         $FromTrash
     )
 
-    $Api = 'api/storage/'
+    $Api = 'storage/'
     if ($FromTrash) {
         $Api += 'auto-trashcan/'
     }
 
-    Invoke-ArtifactoryApi GET -Path "$Api$Path" |
-        New-ArtifactoryCliObject 'Artifactory.Item'
+    # https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-FileInfo
+    Invoke-ArtifactoryApi GET $Api$Path | New-ArtifactoryCliObject 'Artifactory.Item'
 }
 
 function Get-ArtifactoryChildItem {
@@ -44,7 +43,6 @@ function Get-ArtifactoryChildItem {
         New-ArtifactoryCliObject 'Artifactory.ChildItem'
 }
 
-# https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItem
 function Remove-ArtifactoryItem {
     [CmdletBinding(DefaultParameterSetName='ByUri', SupportsShouldProcess)]
     param(
@@ -66,9 +64,10 @@ function Remove-ArtifactoryItem {
         if ($Resource.Contains('auto-trashcan')) {
             $Artifact = $Resource.Replace("$env:ARTIFACTORY_ENDPOINT/auto-trashcan", '')
             # https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItemFromTrashCan
-            Invoke-ArtifactoryApi DELETE "api/trash/clean$($Artifact)" | Out-Null
+            Invoke-ArtifactoryApi DELETE "trash/clean$($Artifact)" | Out-Null
             Write-Host "Removed $Artifact from trash"
         } else {
+            # https://www.jfrog.com/confluence/display/JFROG/Artifactory+REST+API#ArtifactoryRESTAPI-DeleteItem
             Invoke-ArtifactoryApi DELETE -Uri $Resource | Out-Null
             Write-Host "Removed $Resource"
         }

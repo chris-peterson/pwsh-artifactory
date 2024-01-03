@@ -41,6 +41,23 @@
     </Members>
   </Type>
   <Type>
+    <Name>Artifactory.Repository</Name>
+    <Members>
+      <ScriptProperty>
+        <Name>Name</Name>
+        <GetScriptBlock>
+            $this.Key
+        </GetScriptBlock>
+      </ScriptProperty>
+      <ScriptProperty>
+        <Name>RepoType</Name>
+        <GetScriptBlock>
+            $($this.Type ?? $this.Rclass).ToLower()
+        </GetScriptBlock>
+      </ScriptProperty>
+    </Members>
+  </Type>
+  <Type>
     <Name>Artifactory.StorageInfo</Name>
     <Members>
       <ScriptProperty>

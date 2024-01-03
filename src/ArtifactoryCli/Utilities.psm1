@@ -11,18 +11,22 @@ function Invoke-ArtifactoryApi {
         [string]
         $Path,
 
+        [Parameter()]
+        $Body,
+
         [Parameter(ParameterSetName='ByUri', Position=1, Mandatory)]
         [string]
         $Uri
     )
 
     $Resource = switch ($PSCmdlet.ParameterSetName) {
-        ByPath { "$env:ARTIFACTORY_ENDPOINT/$Path" }
+        ByPath { "$env:ARTIFACTORY_ENDPOINT/api/$Path" }
         ByUri  { "$Uri" }
     }
 
     if ($PSCmdlet.ShouldProcess($Resource, "$Method")) {
-        Invoke-RestMethod -Headers @{ 'X-JFrog-Art-Api' = $env:ARTIFACTORY_API_KEY } -Method $Method -Uri $Resource
+        Write-Debug "Artifactory API: $Method $Resource"
+        Invoke-RestMethod -Headers @{ 'Authorization' = "Bearer $env:ARTIFACTORY_ACCESS_TOKEN" } -Method $Method -Uri $Resource -Body $Body
     }
 }
 
