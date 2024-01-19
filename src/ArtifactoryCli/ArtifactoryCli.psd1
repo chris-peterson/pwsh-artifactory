@@ -1,11 +1,11 @@
 @{
-    ModuleVersion = '0.0.2'
+    ModuleVersion = '0.0.3'
 
     PrivateData = @{
         PSData = @{
             LicenseUri = 'https://github.com/chris-peterson/pwsh-artifactory/blob/main/LICENSE'
             ProjectUri = 'https://github.com/chris-peterson/pwsh-artifactory'
-            ReleaseNotes = 'Add repository APIs; switch to access tokens as api keys are going away'
+            ReleaseNotes = 'Add a way of invoking UI functions that are not available in REST API'
         }
     }
 
@@ -39,6 +39,7 @@
         'Get-ArtifactoryStorageInfo'
 
         'Invoke-ArtifactoryApi'
+        'Invoke-ArtifactoryUi'
         'New-ArtifactoryCliObject'
         )
     AliasesToExport = @(

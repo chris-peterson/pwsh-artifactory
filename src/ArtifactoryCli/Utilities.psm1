@@ -7,26 +7,78 @@ function Invoke-ArtifactoryApi {
         [string]
         $Method,
 
-        [Parameter(ParameterSetName='ByPath', Position=1, Mandatory)]
+        [Parameter(ParameterSetName='ByPath', Mandatory, Position=1)]
         [string]
         $Path,
 
         [Parameter()]
         $Body,
 
-        [Parameter(ParameterSetName='ByUri', Position=1, Mandatory)]
+        [Parameter(ParameterSetName='ByUri', Mandatory, Position=1)]
         [string]
         $Uri
     )
 
     $Resource = switch ($PSCmdlet.ParameterSetName) {
-        ByPath { "$env:ARTIFACTORY_ENDPOINT/api/$Path" }
+        ByPath { "$env:ARTIFACTORY_ENDPOINT/artifactory/api/$Path" }
         ByUri  { "$Uri" }
     }
 
     if ($PSCmdlet.ShouldProcess($Resource, "$Method")) {
         Write-Debug "Artifactory API: $Method $Resource"
         Invoke-RestMethod -Headers @{ 'Authorization' = "Bearer $env:ARTIFACTORY_ACCESS_TOKEN" } -Method $Method -Uri $Resource -Body $Body
+    }
+}
+
+# there are a lot of things that can't be done using the REST API.  this provides a very HACKy way to leverage some undocumented UI features
+function Invoke-ArtifactoryUi {
+    [CmdletBinding(SupportsShouldProcess)]
+    param (
+        [Parameter(Mandatory, Position=0)]
+        [string]
+        $Method,
+
+        [Parameter(Mandatory, Position=1)]
+        [string]
+        $Path,
+
+        [Parameter()]
+        [hashtable]
+        $Query = @{},
+
+        [Parameter()]
+        [hashtable]
+        $Body = @{}
+    )
+
+    $Resource = "$env:ARTIFACTORY_ENDPOINT/ui/api/$Path"
+    $Headers = @{
+        'X-Requested-With' = 'XMLHttpRequest'
+    }
+
+    if ($Query.Count -gt 0) {
+        $SerializedQuery = ''
+        $Delimiter = '?'
+        foreach($Name in $Query.Keys) {
+            $Value = $Query[$Name]
+            if ($Value) {
+                $SerializedQuery += $Delimiter
+                $SerializedQuery += "$Name="
+                $SerializedQuery += [System.Net.WebUtility]::UrlEncode($Value)
+                $Delimiter = '&'
+            }
+        }
+        $Resource += $SerializedQuery
+    }
+
+    if ($Body.Count -gt 0) {
+        $Headers.'Content-Type' = 'application/json'
+        $SerializedBody = $Body | ConvertTo-Json
+    }
+
+    if ($PSCmdlet.ShouldProcess($Resource, "$Method ($($($SerializedQuery ?? $Body).GetEnumerator() | ForEach-Object { "$($_.Name)=$($_.Value)" }))")) {
+        Write-Debug "Artifactory UI: $Method $Resource"
+        Invoke-RestMethod -Headers $Headers -Method $Method -Uri $Resource -Body $SerializedBody
     }
 }
 
